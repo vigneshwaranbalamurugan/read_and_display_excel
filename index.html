@@ -11,11 +11,15 @@
   table {
     border-collapse: collapse;
     width: 100%;
-    border: 1px solid #ddd;
+    border: 2px solid black;
+	border-style:dotted;
+	cellpadding:3px;
+	cellspacing:3px;
   }
 
   th, td {
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
+	border-style:ridge;
     padding: 8px;
     text-align: left;
   }
@@ -24,8 +28,7 @@
     background-color: #f2f2f2;
   }
   
-  
-   .input {
+  .input {
    
     border-color: black;
     background-color: lightblue;
@@ -44,7 +47,6 @@
     align-items: center;
     justify-content: center; 
   }
-
   
 </style>
 </head>
@@ -54,7 +56,7 @@
   <h4><b>Choose The Excel Sheet To Be Displayed</b></h4>
 </center>
 <div class="container container-fluid">
-  <div class="table-responsive">
+  <div class="table-responsive" >
     <table id="data" class="table"></table>
   </div>
 </div>
