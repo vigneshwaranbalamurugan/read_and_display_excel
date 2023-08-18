@@ -137,7 +137,6 @@ function generateTableRows(table, data){
   }
 }
 $(document).ready(function(){
-	showLoadingOverlay();
   $("#inputsearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#data tr").filter(function() {
@@ -146,7 +145,6 @@ $(document).ready(function(){
       }
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
-	   hideLoadingOverlay();
   });
 });
 	function showLoadingOverlay() {
