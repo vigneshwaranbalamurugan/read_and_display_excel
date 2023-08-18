@@ -121,10 +121,17 @@ function generateTableHead(table, data){
   let row = thead.insertRow();
     row.id = "headerRow";
   for (let key of data){
+	  if(key!==null){
     let th = document.createElement('th');
     let text = document.createTextNode(key);
     th.appendChild(text);
     row.appendChild(th);
+	  }
+	  else {
+      let th = document.createElement('th');
+      th.style.border = "none"; // Remove border for null values
+      row.appendChild(th);
+    }
   }
 }
 
