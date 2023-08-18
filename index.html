@@ -47,14 +47,43 @@
     align-items: center;
     justify-content: center; 
   }
-  
+  .loading-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 </style>
 </head>
 <body>
+<div id="loadingOverlay" class="loading-overlay">
+  <div class="loader"></div>
+</div>
 <center class="input">
   <input type="file" id="input">
   <h4><b>Choose The Excel Sheet To Be Displayed</b></h4>
 </center>
+
 <label><b>TYPE TO SEARCH</b></label>
   <input class="form-control" id="inputsearch" type="text" placeholder="Search..">
   <br><br>
@@ -69,6 +98,7 @@
 <script>
 var input = document.getElementById('input');
 input.addEventListener('change', function(){
+	showLoadingOverlay();
   readXlsxFile(input.files[0]).then(function(data){
     var i = 0;
     var table = document.getElementById("data");
@@ -82,6 +112,7 @@ input.addEventListener('change', function(){
       }
       i++;
     });
+	   hideLoadingOverlay();
   });
 });
 
@@ -116,6 +147,14 @@ $(document).ready(function(){
     });
   });
 });
+	function showLoadingOverlay() {
+  document.getElementById('loadingOverlay').style.display = 'flex';
+}
+
+// Function to hide the loading overlay
+function hideLoadingOverlay() {
+  document.getElementById('loadingOverlay').style.display = 'none';
+}
 </script>
 </body>
 </html>
