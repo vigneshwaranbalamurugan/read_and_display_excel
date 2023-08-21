@@ -7,72 +7,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+<link rel="stylesheet" src="style.css">
 <style>
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    border: 2px solid black;
-	border-style:dotted;
-	cellpadding:3px;
-	cellspacing:3px;
-  }
-
-  th, td {
-    border: 2px solid #ddd;
-	border-style:ridge;
-    padding: 8px;
-    text-align: left;
-  }
-
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  .input {
-   
-    border-color: black;
-    background-color: lightblue;
-    border-radius: 25px;
-    border-style: double;
-    border-width: 5px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    padding: 10px;
-    align-items: center;
-    justify-content: center;
-    height: 50%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; 
-  }
-  .loading-overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-
-.loader {
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #3498db;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 </style>
 </head>
 <body>
@@ -95,74 +31,6 @@
   </div>
 </div>
    
-<script>
-var input = document.getElementById('input');
-input.addEventListener('change', function(){
-	showLoadingOverlay();
-  readXlsxFile(input.files[0]).then(function(data){
-    var i = 0;
-    var table = document.getElementById("data");
-    table.innerHTML = "";
-    data.map((row, index) => {
-      if (i == 0){
-        generateTableHead(table, data[0]); // Pass only the 0th index row
-      }
-      if (i > 0){
-        generateTableRows(table, row);
-      }
-      i++;
-    });
-	   hideLoadingOverlay();
-  });
-});
-
-function generateTableHead(table, data){
-  let thead = table.createTHead();
-  let row = thead.insertRow();
-    row.id = "headerRow";
-  for (let key of data){
-	  if(key!==null){
-    let th = document.createElement('th');
-    let text = document.createTextNode(key);
-    th.appendChild(text);
-    row.appendChild(th);
-	  }
-	  else {
-      let th = document.createElement('th');
-      th.style.border = "none"; // Remove border for null values
-      row.appendChild(th);
-    }
-  }
-}
-
-function generateTableRows(table, data) {
-  let newRow = table.insertRow(-1);
-  for (let key of data) {
-    let newCell = newRow.insertCell();
-    let newText = document.createTextNode(key);
-    newCell.appendChild(newText);
-  }
-}
-
-$(document).ready(function(){
-  $("#inputsearch").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#data tr").filter(function() {
-	 if ($(this).attr("id") === "headerRow") {
-        return false; // Keep the header row always visible
-      }
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-	function showLoadingOverlay() {
-  document.getElementById('loadingOverlay').style.display = 'flex';
-}
-
-// Function to hide the loading overlay
-function hideLoadingOverlay() {
-  document.getElementById('loadingOverlay').style.display = 'none';
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>
